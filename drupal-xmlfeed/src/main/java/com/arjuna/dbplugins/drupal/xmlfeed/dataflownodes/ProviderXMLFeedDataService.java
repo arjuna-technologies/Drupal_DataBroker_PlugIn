@@ -12,11 +12,14 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
+import org.risbic.intraconnect.basic.BasicDataConsumer;
+import org.risbic.intraconnect.basic.BasicDataProvider;
 import org.w3c.dom.Document;
 import com.arjuna.databroker.data.DataConsumer;
-import com.arjuna.databroker.data.DataSink;
+import com.arjuna.databroker.data.DataProvider;
+import com.arjuna.databroker.data.DataService;
 
-public class ProviderXMLFeedDataService implements DataSink
+public class ProviderXMLFeedDataService implements DataService
 {
     private static final Logger logger = Logger.getLogger(ProviderXMLFeedDataService.class.getName());
 
@@ -24,12 +27,13 @@ public class ProviderXMLFeedDataService implements DataSink
 
     public ProviderXMLFeedDataService(String name, Map<String, String> properties)
     {
-        logger.log(Level.FINE, "ProviderWebServiceDataSink: " + name + ", " + properties);
+        logger.log(Level.FINE, "ProviderXMLFeedDataService: " + name + ", " + properties);
 
         _name       = name;
         _properties = properties;
 
         _dataConsumer = new BasicDataConsumer<Document>(this, "consume", Document.class);
+        _dataProvider = new BasicDataProvider<Document>(this);
 
         _endpointId = properties.get(ENDPOINTPATH_PROPERTYNAME);
         
@@ -39,7 +43,7 @@ public class ProviderXMLFeedDataService implements DataSink
         }
         catch (Throwable throwable)
         {
-            logger.log(Level.WARNING, "ProviderWebServiceDataSink: no providerWebServiceJunction found", throwable);
+            logger.log(Level.WARNING, "ProviderXMLFeedDataService: no providerWebServiceJunction found", throwable);
         }
     }
 
@@ -57,12 +61,12 @@ public class ProviderXMLFeedDataService implements DataSink
 
     public void consume(Document data)
     {
-        logger.log(Level.FINE, "ProviderWebServiceDataSink.consume");
+        logger.log(Level.FINE, "ProviderXMLFeedDataService.consume");
 
         if (_providerWebServiceJunction != null)
             _providerWebServiceJunction.deposit(_endpointId, data);
         else
-            logger.log(Level.WARNING, "ProviderWebServiceDataSink.consume: no providerWebServiceJunction");
+            logger.log(Level.WARNING, "ProviderXMLFeedDataService.consume: no providerWebServiceJunction");
     }
 
     @Override
@@ -85,11 +89,32 @@ public class ProviderXMLFeedDataService implements DataSink
             return null;
     }
 
-    private String _endpointId;
+	@Override
+	public Collection<Class<?>> getDataProviderDataClasses()
+	{
+        Set<Class<?>> dataProviderDataClasses = new HashSet<Class<?>>();
+
+        dataProviderDataClasses.add(Document.class);
+
+        return dataProviderDataClasses;
+	}
+
+	@Override
+    @SuppressWarnings("unchecked")
+	public <T> DataProvider<T> getDataProvider(Class<T> dataClass)
+	{
+        if (dataClass == Document.class)
+            return (DataProvider<T>) _dataProvider;
+        else
+            return null;
+	}
+
+	private String _endpointId;
 
     private String                 _name;
     private Map<String, String>    _properties;
     private DataConsumer<Document> _dataConsumer;
+    private DataProvider<Document> _dataProvider;
 
     private ProviderXMLFeedJunction _providerWebServiceJunction;
 }

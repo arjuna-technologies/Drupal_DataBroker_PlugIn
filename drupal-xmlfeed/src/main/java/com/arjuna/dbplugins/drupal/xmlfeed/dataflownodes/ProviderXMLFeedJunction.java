@@ -18,7 +18,7 @@ public class ProviderXMLFeedJunction
 
     public ProviderXMLFeedJunction()
     {
-        logger.log(Level.FINE, "ProviderWebServiceJunction");
+        logger.log(Level.FINE, "ProviderXMLFeedJunction");
 
         _syncObject  = new Object();
         _documentMap = new HashMap<String, Document>();
@@ -28,7 +28,7 @@ public class ProviderXMLFeedJunction
     {
         synchronized (_syncObject)
         {
-            logger.log(Level.FINE, "ProviderWebServiceJunction.deposit: " + id);
+            logger.log(Level.FINE, "ProviderXMLFeedJunction.deposit: " + id);
 
             _documentMap.put(id, document);
         }
@@ -38,7 +38,7 @@ public class ProviderXMLFeedJunction
     {
         synchronized (_syncObject)
         {
-            logger.log(Level.FINE, "ProviderWebServiceJunction.withdraw: " + id);
+            logger.log(Level.FINE, "ProviderXMLFeedJunction.withdraw: " + id);
 
             return _documentMap.remove(id);
         }

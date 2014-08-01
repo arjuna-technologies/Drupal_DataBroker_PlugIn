@@ -22,12 +22,23 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <artifactId>jboss-ejb-api_${ejb-api.version}_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_${servlet-api.version}_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.risbic</groupId>
+            <artifactId>intraconnect-basic</artifactId>
+            <version>1.0.0p1m1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.arjuna.dbplugins.drupal</groupId>
-            <artifactId>drupal-webservice</artifactId>
+            <artifactId>drupal-xmlfeed</artifactId>
             <version>1.0.0p1m1</version>
             <scope>provided</scope>
             <type>ejb</type>

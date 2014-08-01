@@ -7,12 +7,9 @@ package com.arjuna.dbplugins.drupal.xmlfeed;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import com.arjuna.databroker.data.DataFlowNode;
 import com.arjuna.databroker.data.DataFlowNodeFactory;
 import com.arjuna.databroker.data.DataService;
-import com.arjuna.databroker.data.DataSink;
-import com.arjuna.databroker.data.DataSource;
 import com.arjuna.databroker.data.InvalidClassException;
 import com.arjuna.databroker.data.InvalidMetaPropertyException;
 import com.arjuna.databroker.data.InvalidNameException;
@@ -71,11 +68,16 @@ public class XMLFeedDataFlowNodeFactory implements DataFlowNodeFactory
     {
         if (dataFlowNodeClass.equals(DataService.class))
         {
-            List<String> propertyNames = new LinkedList<String>();
+            if (! metaProperties.isEmpty())
+            {
+                List<String> propertyNames = new LinkedList<String>();
 
-            propertyNames.add(ProviderXMLFeedDataService.ENDPOINTPATH_PROPERTYNAME);
+                propertyNames.add(ProviderXMLFeedDataService.ENDPOINTPATH_PROPERTYNAME);
 
-            return propertyNames;
+                return propertyNames;
+            }
+            else
+                throw new InvalidMetaPropertyException("No metaproperties expected", null, null);
         }
         else
             throw new InvalidClassException("Unsupported class", dataFlowNodeClass.getName());
@@ -86,33 +88,10 @@ public class XMLFeedDataFlowNodeFactory implements DataFlowNodeFactory
     public <T extends DataFlowNode> T createDataFlowNode(String name, Class<T> dataFlowNodeClass, Map<String, String> metaProperties, Map<String, String> properties)
         throws InvalidClassException, InvalidNameException, InvalidMetaPropertyException, MissingMetaPropertyException, InvalidPropertyException, MissingPropertyException
     {
-        if (dataFlowNodeClass.equals(DataSource.class))
+        if (dataFlowNodeClass.equals(DataService.class))
         {
-            if ((metaProperties.size() == 1) && metaProperties.containsKey("Type"))
-            {
-                String type = metaProperties.get("Type");
-                if (type.equals("Pull"))
-                    return (T) new PullWebServiceDataSource(name, properties);
-                else if (type.equals("Acceptor"))
-                    return (T) new AcceptorWebServiceDataSource(name, properties);
-                else
-                    throw new InvalidMetaPropertyException("Expecting value of 'Type' meta property 'Pull' or 'Acceptor'", "Type", type);
-            }
-            else
-                throw new InvalidMetaPropertyException("No metaproperties expected", null, null);
-        }
-        else if (dataFlowNodeClass.equals(DataSink.class))
-        {
-            if ((metaProperties.size() == 1) && metaProperties.containsKey("Type"))
-            {
-                String type = metaProperties.get("Type");
-                if (type.equals("Push"))
-                    return (T) new PushWebServiceDataSink(name, properties);
-                else if (type.equals("Provider"))
-                    return (T) new ProviderXMLFeedDataService(name, properties);
-                else
-                    throw new InvalidMetaPropertyException("Expecting value of 'Type' meta property 'Push' or 'Provider'", "Type", type);
-            }
+            if (! metaProperties.isEmpty())
+                return (T) new ProviderXMLFeedDataService(name, properties);
             else
                 throw new InvalidMetaPropertyException("No metaproperties expected", null, null);
         }

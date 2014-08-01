@@ -17,7 +17,7 @@
 
     <packaging>ear</packaging>
 
-    <name>Drupal DataBroker Plugin EAR</name>
+    <name>Drupal DataBroker PlugIn EAR</name>
 
     <dependencies>
         <dependency>
@@ -28,13 +28,13 @@
         </dependency>
         <dependency>
             <groupId>com.arjuna.dbplugins.drupal</groupId>
-            <artifactId>drupal-webservice</artifactId>
+            <artifactId>drupal-xmlfeed</artifactId>
             <version>1.0.0p1m1</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>com.arjuna.dbplugins.drupal</groupId>
-            <artifactId>drupal-webservice-endpoint</artifactId>
+            <artifactId>drupal-xmlfeed-endpoint</artifactId>
             <version>1.0.0p1m1</version>
             <type>war</type>
         </dependency>
@@ -54,11 +54,11 @@
                         </ejbModule>
                         <ejbModule>
                             <groupId>com.arjuna.dbplugins.drupal</groupId>
-                            <artifactId>drupal-webservice</artifactId>
+                            <artifactId>drupal-xmlfeed</artifactId>
                         </ejbModule>
                         <webModule>
                             <groupId>com.arjuna.dbplugins.drupal</groupId>
-                            <artifactId>drupal-webservice-endpoint</artifactId>
+                            <artifactId>drupal-xmlfeed-endpoint</artifactId>
                             <contextRoot>data_drupal</contextRoot>
                         </webModule>
                     </modules>
@@ -76,6 +76,27 @@
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                       </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>wildfly</id>
+    
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
                         <executions>
                             <execution>
                                 <phase>install</phase>

@@ -22,9 +22,9 @@ public class DrupalDataFlowNodeFactoriesSetup
     @PostConstruct
     public void setup()
     {
-        DataFlowNodeFactory webserviceDataFlowNodeFactory = new WebServiceDataFlowNodeFactory("WebService Interconnect Data Flow Node Factories", Collections.<String, String>emptyMap());
+        DataFlowNodeFactory xmlFeedDataFlowNodeFactory = new XMLFeedDataFlowNodeFactory("Drupal XMLFeed Data Flow Node Factories", Collections.<String, String>emptyMap());
 
-        _dataFlowNodeFactoryInventory.addDataFlowNodeFactory(webserviceDataFlowNodeFactory);
+        _dataFlowNodeFactoryInventory.addDataFlowNodeFactory(xmlFeedDataFlowNodeFactory);
     }
 
     @PreDestroy
