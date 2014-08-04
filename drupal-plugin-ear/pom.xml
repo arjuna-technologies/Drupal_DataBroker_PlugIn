@@ -59,7 +59,7 @@
                         <webModule>
                             <groupId>com.arjuna.dbplugins.drupal</groupId>
                             <artifactId>drupal-xmlfeed-endpoint</artifactId>
-                            <contextRoot>data_drupal</contextRoot>
+                            <contextRoot>drupal</contextRoot>
                         </webModule>
                     </modules>
                 </configuration>
