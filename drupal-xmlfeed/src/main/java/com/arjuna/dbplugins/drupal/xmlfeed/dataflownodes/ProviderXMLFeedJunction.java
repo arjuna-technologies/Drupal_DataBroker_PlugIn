@@ -40,7 +40,7 @@ public class ProviderXMLFeedJunction
         {
             logger.log(Level.FINE, "ProviderXMLFeedJunction.withdraw: " + id);
 
-            return _documentMap.remove(id);
+            return _documentMap.get(id);
         }
     }
 

@@ -25,9 +25,9 @@ import com.arjuna.dbplugins.drupal.xmlfeed.dataflownodes.ProviderXMLFeedJunction
 @WebServlet(CommonDefs.XMLFEED_SERVICE_PATH)
 public class ProviderXMLFeedServlet extends HttpServlet
 {
-	private static final long serialVersionUID = -5349864860416735754L;
+    private static final long serialVersionUID = -5349864860416735754L;
 
-	private static final Logger logger = Logger.getLogger(ProviderXMLFeedServlet.class.getName());
+    private static final Logger logger = Logger.getLogger(ProviderXMLFeedServlet.class.getName());
 
     public ProviderXMLFeedServlet()
     {
@@ -35,8 +35,8 @@ public class ProviderXMLFeedServlet extends HttpServlet
     }
 
     @Override
-	protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
-       throws ServletException, IOException
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+        throws ServletException, IOException
     {
         logger.log(Level.FINE, "ProviderXMLFeedServlet.doGet");
 
@@ -44,7 +44,7 @@ public class ProviderXMLFeedServlet extends HttpServlet
         {
             if (_providerXMLFeedJunction != null)
             {
-                String id = httpServletRequest.getPathInfo();
+                String id = httpServletRequest.getPathInfo().substring(1);
 
                 logger.log(Level.FINE, "ProviderXMLFeedServlet.doGet: id = " + id);
 
@@ -54,8 +54,8 @@ public class ProviderXMLFeedServlet extends HttpServlet
 
                     if (document != null)
                     {
-                    	DOMSource    domSource    = new DOMSource(document);
-                    	StreamResult streamResult = new StreamResult(httpServletResponse.getWriter());
+                        DOMSource    domSource    = new DOMSource(document);
+                        StreamResult streamResult = new StreamResult(httpServletResponse.getWriter());
 
                         TransformerFactory transformerFactory = TransformerFactory.newInstance();
                         Transformer        transformer        = transformerFactory.newTransformer();
@@ -69,13 +69,13 @@ public class ProviderXMLFeedServlet extends HttpServlet
                 else
                 {
                     logger.log(Level.WARNING, "ProviderXMLFeedServlet no id");
-                	httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 }
             }
             else
             {
                 logger.log(Level.WARNING, "ProviderXMLFeedServlet no provider XML feed junction");
-            	httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }
         catch (IOException ioException)

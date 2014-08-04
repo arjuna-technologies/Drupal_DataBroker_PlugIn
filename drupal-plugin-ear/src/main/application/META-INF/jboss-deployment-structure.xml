@@ -15,6 +15,7 @@
     <sub-deployment name="drupal-xmlfeed-1.0.0p1m1.jar">
         <dependencies>
             <module name="deployment.databroker.ear.data-common.jar"/>
+            <module name="deployment.dataflow-utils.ear.intraconnect-basic.jar"/>
         </dependencies>
     </sub-deployment>
     <sub-deployment name="drupal-xmlfeed-endpoint-1.0.0p1m1.war">

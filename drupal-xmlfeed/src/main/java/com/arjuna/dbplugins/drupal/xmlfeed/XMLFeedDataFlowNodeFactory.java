@@ -72,7 +72,7 @@ public class XMLFeedDataFlowNodeFactory implements DataFlowNodeFactory
             {
                 List<String> propertyNames = new LinkedList<String>();
 
-                propertyNames.add(ProviderXMLFeedDataService.ENDPOINTPATH_PROPERTYNAME);
+                propertyNames.add(ProviderXMLFeedDataService.XMLFEEDID_PROPERTYNAME);
 
                 return propertyNames;
             }

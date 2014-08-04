@@ -6,5 +6,5 @@ package com.arjuna.dbplugins.drupal.xmlfeed.dataflownodes;
 
 public class CommonDefs
 {
-    public static final String XMLFEED_SERVICE_PATH = "/xmlfeed";
+    public static final String XMLFEED_SERVICE_PATH = "/xmlfeed/*";
 }
