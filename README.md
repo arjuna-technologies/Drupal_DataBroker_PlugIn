@@ -1,7 +1,7 @@
 Drupal_DataBroker_PlugIn
 ========================
 
-Drupal DataBroker PulgIn
+Drupal DataBroker PlugIn
 
 * Support for "Feeds" with "Feeds XPath Parser"
 
