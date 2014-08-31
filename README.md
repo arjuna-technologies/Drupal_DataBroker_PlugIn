@@ -3,6 +3,8 @@ Drupal_DataBroker_PlugIn
 
 Drupal DataBroker PulgIn
 
+* Support for "Feeds" with "Feeds XPath Parser"
+
 License
 =======
 
