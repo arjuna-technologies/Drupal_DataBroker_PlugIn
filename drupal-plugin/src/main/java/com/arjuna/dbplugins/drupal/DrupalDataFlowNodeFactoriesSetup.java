@@ -30,7 +30,7 @@ public class DrupalDataFlowNodeFactoriesSetup
     @PreDestroy
     public void cleanup()
     {
-        _dataFlowNodeFactoryInventory.removeDataFlowNodeFactory("DataBroker Drupal Data Flow Node Factories");
+        _dataFlowNodeFactoryInventory.removeDataFlowNodeFactory("Drupal XMLFeed Data Flow Node Factories");
     }
 
     @EJB(lookup="java:global/databroker/control-core/DataFlowNodeFactoryInventory")
