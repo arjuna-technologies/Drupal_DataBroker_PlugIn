@@ -90,7 +90,7 @@ public class XMLFeedDataFlowNodeFactory implements DataFlowNodeFactory
     {
         if (dataFlowNodeClass.equals(DataService.class))
         {
-            if (! metaProperties.isEmpty())
+            if (metaProperties.isEmpty())
                 return (T) new ProviderXMLFeedDataService(name, properties);
             else
                 throw new InvalidMetaPropertyException("No metaproperties expected", null, null);
