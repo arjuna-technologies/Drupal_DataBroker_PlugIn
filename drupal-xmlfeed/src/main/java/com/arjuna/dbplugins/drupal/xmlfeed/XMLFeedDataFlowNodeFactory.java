@@ -68,7 +68,7 @@ public class XMLFeedDataFlowNodeFactory implements DataFlowNodeFactory
     {
         if (dataFlowNodeClass.equals(DataService.class))
         {
-            if (! metaProperties.isEmpty())
+            if (metaProperties.isEmpty())
             {
                 List<String> propertyNames = new LinkedList<String>();
 
