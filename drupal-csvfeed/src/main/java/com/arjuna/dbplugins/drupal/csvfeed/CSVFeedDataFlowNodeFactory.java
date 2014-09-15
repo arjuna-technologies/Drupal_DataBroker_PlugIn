@@ -72,7 +72,7 @@ public class CSVFeedDataFlowNodeFactory implements DataFlowNodeFactory
             {
                 List<String> propertyNames = new LinkedList<String>();
 
-                propertyNames.add(ProviderCSVFeedDataService.XMLFEEDID_PROPERTYNAME);
+                propertyNames.add(ProviderCSVFeedDataService.CSVFEEDID_PROPERTYNAME);
 
                 return propertyNames;
             }

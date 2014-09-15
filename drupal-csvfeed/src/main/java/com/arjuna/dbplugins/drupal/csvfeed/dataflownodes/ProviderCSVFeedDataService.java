@@ -22,7 +22,7 @@ public class ProviderCSVFeedDataService implements DataService
 {
     private static final Logger logger = Logger.getLogger(ProviderCSVFeedDataService.class.getName());
 
-    public static final String XMLFEEDID_PROPERTYNAME = "XML Feed ID";
+    public static final String CSVFEEDID_PROPERTYNAME = "CSV Feed ID";
 
     public ProviderCSVFeedDataService(String name, Map<String, String> properties)
     {
@@ -34,7 +34,7 @@ public class ProviderCSVFeedDataService implements DataService
         _dataConsumer = new BasicDataConsumer<String>(this, "consume", String.class);
         _dataProvider = new BasicDataProvider<String>(this);
 
-        _endpointId = properties.get(XMLFEEDID_PROPERTYNAME);
+        _endpointId = properties.get(CSVFEEDID_PROPERTYNAME);
 
         try
         {
