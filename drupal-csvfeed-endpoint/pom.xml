@@ -13,11 +13,11 @@
         <version>1.0.0p1m1</version>
     </parent>
 
-    <artifactId>drupal-plugin</artifactId>
+    <artifactId>drupal-csvfeed-endpoint</artifactId>
 
-    <packaging>ejb</packaging>
+    <packaging>war</packaging>
 
-    <name>Drupal DataBroker PlugIn</name>
+    <name>Drupal CSVFeed Endpoint</name>
 
     <dependencies>
         <dependency>
@@ -26,21 +26,21 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.arjuna.databroker</groupId>
-            <artifactId>data-common</artifactId>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_${servlet-api.version}_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.risbic</groupId>
+            <artifactId>intraconnect-basic</artifactId>
             <version>1.0.0p1m1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.arjuna.dbplugins.drupal</groupId>
-            <artifactId>drupal-xmlfeed</artifactId>
-            <version>1.0.0p1m1</version>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>com.arjuna.dbplugins.drupal</groupId>
             <artifactId>drupal-csvfeed</artifactId>
             <version>1.0.0p1m1</version>
+            <scope>provided</scope>
             <type>ejb</type>
         </dependency>
     </dependencies>

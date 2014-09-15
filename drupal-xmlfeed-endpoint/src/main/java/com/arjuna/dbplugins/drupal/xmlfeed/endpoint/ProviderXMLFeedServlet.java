@@ -52,6 +52,7 @@ public class ProviderXMLFeedServlet extends HttpServlet
                 {
                     Document document = _providerXMLFeedJunction.withdraw(id);
 
+                    httpServletResponse.setContentType("text/xml");
                     if (document != null)
                     {
                         DOMSource    domSource    = new DOMSource(document);

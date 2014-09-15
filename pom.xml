@@ -48,6 +48,8 @@
     <modules>
         <module>drupal-xmlfeed</module> 
         <module>drupal-xmlfeed-endpoint</module>
+        <module>drupal-csvfeed</module>
+        <module>drupal-csvfeed-endpoint</module>
         <module>drupal-plugin</module>
         <module>drupal-plugin-ear</module>
     </modules>
