@@ -11,13 +11,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.naming.InitialContext;
-import org.risbic.intraconnect.basic.BasicDataConsumer;
-import org.risbic.intraconnect.basic.BasicDataProvider;
+
 import org.w3c.dom.Document;
+
 import com.arjuna.databroker.data.DataConsumer;
+import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataService;
+import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
+import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
 
 public class ProviderXMLFeedDataService implements DataService
 {
@@ -32,9 +36,6 @@ public class ProviderXMLFeedDataService implements DataService
         _name       = name;
         _properties = properties;
 
-        _dataConsumer = new BasicDataConsumer<Document>(this, "consume", Document.class);
-        _dataProvider = new BasicDataProvider<Document>(this);
-
         _endpointId = properties.get(XMLFEEDID_PROPERTYNAME);
 
         try
@@ -48,15 +49,39 @@ public class ProviderXMLFeedDataService implements DataService
     }
 
     @Override
+    public DataFlow getDataFlow()
+    {
+    	return _dataFlow;
+    }
+
+    @Override
+    public void setDataFlow(DataFlow dataFlow)
+    {
+    	_dataFlow = dataFlow;
+    }
+
+    @Override
     public String getName()
     {
         return _name;
     }
 
     @Override
+    public void setName(String name)
+    {
+        _name = name;
+    }
+
+    @Override
     public Map<String, String> getProperties()
     {
         return Collections.unmodifiableMap(_properties);
+    }
+
+    @Override
+    public void setProperties(Map<String, String> properties)
+    {
+        _properties = properties;
     }
 
     public void consume(Document data)
@@ -111,9 +136,12 @@ public class ProviderXMLFeedDataService implements DataService
 
     private String _endpointId;
 
+    private DataFlow               _dataFlow;
     private String                 _name;
     private Map<String, String>    _properties;
+    @DataConsumerInjection(methodName="consume")
     private DataConsumer<Document> _dataConsumer;
+    @DataProviderInjection
     private DataProvider<Document> _dataProvider;
 
     private ProviderXMLFeedJunction _providerWebServiceJunction;

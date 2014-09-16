@@ -12,11 +12,12 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
-import org.risbic.intraconnect.basic.BasicDataConsumer;
-import org.risbic.intraconnect.basic.BasicDataProvider;
 import com.arjuna.databroker.data.DataConsumer;
+import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataService;
+import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
+import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
 
 public class ProviderCSVFeedDataService implements DataService
 {
@@ -31,9 +32,6 @@ public class ProviderCSVFeedDataService implements DataService
         _name       = name;
         _properties = properties;
 
-        _dataConsumer = new BasicDataConsumer<String>(this, "consume", String.class);
-        _dataProvider = new BasicDataProvider<String>(this);
-
         _endpointId = properties.get(CSVFEEDID_PROPERTYNAME);
 
         try
@@ -47,15 +45,39 @@ public class ProviderCSVFeedDataService implements DataService
     }
 
     @Override
+    public DataFlow getDataFlow()
+    {
+    	return _dataFlow;
+    }
+
+    @Override
+    public void setDataFlow(DataFlow dataFlow)
+    {
+    	_dataFlow = dataFlow;
+    }
+
+    @Override
     public String getName()
     {
         return _name;
     }
 
     @Override
+    public void setName(String name)
+    {
+        _name = name;
+    }
+
+    @Override
     public Map<String, String> getProperties()
     {
         return Collections.unmodifiableMap(_properties);
+    }
+
+    @Override
+    public void setProperties(Map<String, String> properties)
+    {
+        _properties = properties;
     }
 
     public void consume(String data)
@@ -110,9 +132,12 @@ public class ProviderCSVFeedDataService implements DataService
 
     private String _endpointId;
 
+    private DataFlow             _dataFlow;
     private String               _name;
     private Map<String, String>  _properties;
+    @DataConsumerInjection(methodName="consume")
     private DataConsumer<String> _dataConsumer;
+    @DataProviderInjection
     private DataProvider<String> _dataProvider;
 
     private ProviderCSVFeedJunction _providerCSVServiceJunction;
