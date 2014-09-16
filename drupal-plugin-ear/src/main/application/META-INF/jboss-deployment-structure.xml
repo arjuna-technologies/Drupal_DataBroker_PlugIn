@@ -24,14 +24,4 @@
             <module name="deployment.databroker.ear.data-common-jee.jar"/>
         </dependencies>
     </sub-deployment>
-    <!-- sub-deployment name="drupal-xmlfeed-endpoint-1.0.0p1m1.war">
-        <dependencies>
-            <module name="deployment.databroker.ear.data-common.jar"/>
-        </dependencies>
-    </sub-deployment>
-    <sub-deployment name="drupal-csvfeed-endpoint-1.0.0p1m1.war">
-        <dependencies>
-            <module name="deployment.databroker.ear.data-common.jar"/>
-        </dependencies>
-    </sub-deployment -->
 </jboss-deployment-structure>
