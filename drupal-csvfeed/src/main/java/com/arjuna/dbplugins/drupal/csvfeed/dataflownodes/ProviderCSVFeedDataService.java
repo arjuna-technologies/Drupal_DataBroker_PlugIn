@@ -18,6 +18,9 @@ import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataService;
 import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
 import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
+import com.arjuna.databroker.data.jee.annotation.PostConfig;
+import com.arjuna.databroker.data.jee.annotation.PostCreated;
+import com.arjuna.databroker.data.jee.annotation.PostRecovery;
 
 public class ProviderCSVFeedDataService implements DataService
 {
@@ -25,14 +28,17 @@ public class ProviderCSVFeedDataService implements DataService
 
     public static final String CSVFEEDID_PROPERTYNAME = "CSV Feed ID";
 
+    public ProviderCSVFeedDataService()
+    {
+        logger.log(Level.FINE, "ProviderCSVFeedDataService");
+    }
+
     public ProviderCSVFeedDataService(String name, Map<String, String> properties)
     {
         logger.log(Level.FINE, "ProviderCSVFeedDataService: " + name + ", " + properties);
 
         _name       = name;
         _properties = properties;
-
-        _endpointId = properties.get(CSVFEEDID_PROPERTYNAME);
 
         try
         {
@@ -44,6 +50,14 @@ public class ProviderCSVFeedDataService implements DataService
         }
     }
 
+    @PostCreated
+    @PostRecovery
+    @PostConfig
+    public void setup()
+    {
+        _endpointId = _properties.get(CSVFEEDID_PROPERTYNAME);
+    }
+    
     @Override
     public DataFlow getDataFlow()
     {

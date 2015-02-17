@@ -11,17 +11,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.naming.InitialContext;
-
 import org.w3c.dom.Document;
-
 import com.arjuna.databroker.data.DataConsumer;
 import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataService;
 import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
 import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
+import com.arjuna.databroker.data.jee.annotation.PostConfig;
+import com.arjuna.databroker.data.jee.annotation.PostCreated;
+import com.arjuna.databroker.data.jee.annotation.PostRecovery;
 
 public class ProviderXMLFeedDataService implements DataService
 {
@@ -29,14 +29,17 @@ public class ProviderXMLFeedDataService implements DataService
 
     public static final String XMLFEEDID_PROPERTYNAME = "XML Feed ID";
 
+    public ProviderXMLFeedDataService()
+    {
+        logger.log(Level.FINE, "ProviderXMLFeedDataService");
+    }
+
     public ProviderXMLFeedDataService(String name, Map<String, String> properties)
     {
         logger.log(Level.FINE, "ProviderXMLFeedDataService: " + name + ", " + properties);
 
         _name       = name;
         _properties = properties;
-
-        _endpointId = properties.get(XMLFEEDID_PROPERTYNAME);
 
         try
         {
@@ -46,6 +49,14 @@ public class ProviderXMLFeedDataService implements DataService
         {
             logger.log(Level.WARNING, "ProviderXMLFeedDataService: no providerWebServiceJunction found", throwable);
         }
+    }
+
+    @PostCreated
+    @PostRecovery
+    @PostConfig
+    public void setup()
+    {
+        _endpointId = _properties.get(XMLFEEDID_PROPERTYNAME);
     }
 
     @Override
