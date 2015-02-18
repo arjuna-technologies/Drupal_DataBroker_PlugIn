@@ -20,9 +20,9 @@ import com.arjuna.dbplugins.drupal.csvfeed.dataflownodes.ProviderCSVFeedJunction
 @WebServlet(CommonDefs.CSVFEED_SERVICE_PATH)
 public class ProviderCSVFeedServlet extends HttpServlet
 {
-	private static final long serialVersionUID = -3645269692852995742L;
+    private static final long serialVersionUID = -3645269692852995742L;
 
-	private static final Logger logger = Logger.getLogger(ProviderCSVFeedServlet.class.getName());
+    private static final Logger logger = Logger.getLogger(ProviderCSVFeedServlet.class.getName());
 
     public ProviderCSVFeedServlet()
     {
